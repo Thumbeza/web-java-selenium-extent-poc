@@ -8,8 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="java-selenium" />
-        <module name="vodacom-assessment" />
-        <module name="VodacomAssessment" />
       </profile>
     </annotationProcessing>
   </component>
