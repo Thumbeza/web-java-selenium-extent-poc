@@ -1,9 +1,6 @@
 package Tests;
 
-import POM.DealDetailsPage;
-import POM.LandingPage;
-import POM.OnlineExclusiveDealsPage;
-import POM.ShoppingMenuPage;
+import POM.*;
 import Reporting.ExtentTestManager;
 import TestData.DeviceName;
 import com.aventstack.extentreports.ExtentTest;
@@ -36,6 +33,11 @@ public class ShoppingTests extends BaseTest{
             Assert.assertTrue(dealDetailsPage.Visible);
             Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
 
+            //create a validation point
+
+            OrderSummaryPage orderSummaryPage = new OrderSummaryPage(Driver);
+            Assert.assertTrue(orderSummaryPage.Visible);
+
             ExtentTestManager.PassTest(_test);
 
         }
@@ -43,6 +45,38 @@ public class ShoppingTests extends BaseTest{
             ExtentTestManager.FailTest(_test, exception, BrowserHelpers.TakeScreenshotAsBase64());
             throw exception;
         }
+    }
 
+    @Test
+    public void GetDealWithIncorrectPrice() {
+
+        try {
+            LandingPage landingPage = new LandingPage(Driver);
+            Assert.assertTrue(landingPage.Visible);
+
+            landingPage.OpenShoppingMenu();
+
+            ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
+            Assert.assertTrue(shoppingMenuPage.Visible);
+
+            shoppingMenuPage.OpenOnlineExclusiveDeals();
+
+            OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
+            Assert.assertTrue(onlineExclusiveDealsPage.Visible);
+
+            onlineExclusiveDealsPage.SeeDeviceDetails(DeviceName.GalaxyA33);
+
+            DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
+            Assert.assertTrue(dealDetailsPage.Visible);
+            Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
+
+            //create a validation point
+
+            ExtentTestManager.PassTest(_test);
+
+        } catch (Exception exception) {
+            ExtentTestManager.FailTest(_test, exception, BrowserHelpers.TakeScreenshotAsBase64());
+            throw exception;
+        }
     }
 }
