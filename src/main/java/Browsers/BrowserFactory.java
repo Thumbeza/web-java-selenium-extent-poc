@@ -22,7 +22,7 @@ public class BrowserFactory implements IBrowserFactory{
     }
 
     private WebDriver GetChrome(){
-        System.setProperty("webdriver.chrome.driver", "../src/main/java/Drivers/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Dev\\java-selenium\\src\\main\\java\\Drivers\\chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -31,7 +31,7 @@ public class BrowserFactory implements IBrowserFactory{
     }
 
     private WebDriver GetEdge(){
-        System.setProperty("webdriver.edge.driver", "../src/main/java/Drivers/msedgedriver.exe");
+        System.setProperty("webdriver.edge.driver", "C:\\Dev\\java-selenium\\src\\main\\java\\Drivers\\msedgedriver.exe");
 
         WebDriver driver = new EdgeDriver();
         driver.manage().window().maximize();

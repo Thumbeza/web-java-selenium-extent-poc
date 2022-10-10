@@ -1,21 +1,21 @@
 package Reporting;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.Status;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExtentTestManager {
 
-    public static void CreateTest(String name, String description) {
-
+    static Map<Integer, ExtentTest> extentTestMap = new HashMap<>();
+    static ExtentReports extent        = ExtentManager.createExtentReports();
+    public static synchronized ExtentTest GetTest() {
+        return extentTestMap.get((int) Thread.currentThread().getId());
     }
-    public static void FailTest(ExtentTest test, Exception exception, String screenshot) {
-        test.fail(exception);
-        test.log(Status.INFO,
-                "Screenshot: ", MediaEntityBuilder.createScreenCaptureFromBase64String(screenshot).build());
-    }
-
-    public static void PassTest(ExtentTest test) {
-        test.pass("All assertions passed");
+    public static synchronized ExtentTest StartTest(String testName, String desc) {
+        ExtentTest test = extent.createTest(testName, desc);
+        extentTestMap.put((int) Thread.currentThread().getId(), test);
+        return test;
     }
 }

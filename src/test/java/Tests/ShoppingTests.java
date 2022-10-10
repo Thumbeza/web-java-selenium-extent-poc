@@ -1,7 +1,6 @@
 package Tests;
 
 import POM.*;
-import Reporting.ExtentTestManager;
 import TestData.DeviceName;
 import com.aventstack.extentreports.ExtentTest;
 import org.testng.Assert;
@@ -10,73 +9,52 @@ import org.testng.annotations.Test;
 public class ShoppingTests extends BaseTest{
     private ExtentTest _test;
 
-    @Test
+    @Test(description = "Get a contract deal")
     public void GetDeal(){
+        LandingPage landingPage = new LandingPage(Driver);
+        Assert.assertTrue(landingPage.Visible);
 
-        try {
-            LandingPage landingPage = new LandingPage(Driver);
-            Assert.assertTrue(landingPage.Visible);
+        landingPage.OpenShoppingMenu();
 
-            landingPage.OpenShoppingMenu();
+        ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
+        Assert.assertTrue(shoppingMenuPage.Visible);
 
-            ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
-            Assert.assertTrue(shoppingMenuPage.Visible);
+        shoppingMenuPage.OpenOnlineExclusiveDeals();
 
-            shoppingMenuPage.OpenOnlineExclusiveDeals();
+        OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
+        Assert.assertTrue(onlineExclusiveDealsPage.Visible);
 
-            OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
-            Assert.assertTrue(onlineExclusiveDealsPage.Visible);
+        onlineExclusiveDealsPage.SeeDeviceDetails(DeviceName.GalaxyA33);
 
-            onlineExclusiveDealsPage.SeeDeviceDetails(DeviceName.GalaxyA33);
+        DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
+        Assert.assertTrue(dealDetailsPage.Visible);
+        Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
 
-            DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
-            Assert.assertTrue(dealDetailsPage.Visible);
-            Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
+        //create a validation point
 
-            //create a validation point
-
-            OrderSummaryPage orderSummaryPage = new OrderSummaryPage(Driver);
-            Assert.assertTrue(orderSummaryPage.Visible);
-
-            ExtentTestManager.PassTest(_test);
-
-        }
-        catch (Exception exception) {
-            ExtentTestManager.FailTest(_test, exception, BrowserHelpers.TakeScreenshotAsBase64());
-            throw exception;
-        }
+        OrderSummaryPage orderSummaryPage = new OrderSummaryPage(Driver);
+        Assert.assertTrue(orderSummaryPage.Visible);
     }
 
-    @Test
+    @Test(description = "Get a contract deal and verify with invalid price")
     public void GetDealWithIncorrectPrice() {
+        LandingPage landingPage = new LandingPage(Driver);
+        Assert.assertTrue(landingPage.Visible);
 
-        try {
-            LandingPage landingPage = new LandingPage(Driver);
-            Assert.assertTrue(landingPage.Visible);
+        landingPage.OpenShoppingMenu();
 
-            landingPage.OpenShoppingMenu();
+        ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
+        Assert.assertTrue(shoppingMenuPage.Visible);
 
-            ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
-            Assert.assertTrue(shoppingMenuPage.Visible);
+        shoppingMenuPage.OpenOnlineExclusiveDeals();
 
-            shoppingMenuPage.OpenOnlineExclusiveDeals();
+        OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
+        Assert.assertTrue(onlineExclusiveDealsPage.Visible);
 
-            OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
-            Assert.assertTrue(onlineExclusiveDealsPage.Visible);
+        onlineExclusiveDealsPage.SeeDeviceDetails(DeviceName.GalaxyA33);
 
-            onlineExclusiveDealsPage.SeeDeviceDetails(DeviceName.GalaxyA33);
-
-            DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
-            Assert.assertTrue(dealDetailsPage.Visible);
-            Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
-
-            //create a validation point
-
-            ExtentTestManager.PassTest(_test);
-
-        } catch (Exception exception) {
-            ExtentTestManager.FailTest(_test, exception, BrowserHelpers.TakeScreenshotAsBase64());
-            throw exception;
-        }
+        DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
+        Assert.assertTrue(dealDetailsPage.Visible);
+        Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
     }
 }
