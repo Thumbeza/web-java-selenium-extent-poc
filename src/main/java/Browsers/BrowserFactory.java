@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import java.io.File;
+
 public class BrowserFactory implements IBrowserFactory{
     public WebDriver GetDriver() {
         return GetChrome();
@@ -22,7 +24,8 @@ public class BrowserFactory implements IBrowserFactory{
     }
 
     private WebDriver GetChrome(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Dev\\java-selenium\\src\\main\\java\\Drivers\\chromedriver.exe");
+        String chromePath = new File("src/main/java/Drivers/chromedriver.exe").getPath();
+        System.setProperty("webdriver.chrome.driver", chromePath);
 
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -31,7 +34,8 @@ public class BrowserFactory implements IBrowserFactory{
     }
 
     private WebDriver GetEdge(){
-        System.setProperty("webdriver.edge.driver", "C:\\Dev\\java-selenium\\src\\main\\java\\Drivers\\msedgedriver.exe");
+        String edgePath = new File("src/main/java/Drivers/chromedriver.exe").getPath();
+        System.setProperty("webdriver.edge.driver", edgePath);
 
         WebDriver driver = new EdgeDriver();
         driver.manage().window().maximize();
