@@ -63,5 +63,10 @@ public class ShoppingTests extends BaseTest{
 
         DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
         Assert.assertTrue(dealDetailsPage.Visible);
+
+        String contractTermsPreDeal = dealDetailsPage.GetPriceAndContractTerm();
+        String contractPrice = contractTermsPreDeal.substring(0,4);
+
+        Assert.assertEquals(contractPrice, "R158");
     }
 }

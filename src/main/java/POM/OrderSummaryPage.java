@@ -35,6 +35,8 @@ public class OrderSummaryPage extends BasePage{
     }
 
     private Boolean IsPageVisible() {
+
+
         return WaitForElementVisible(OrderSummaryLabel);
     }
 }
