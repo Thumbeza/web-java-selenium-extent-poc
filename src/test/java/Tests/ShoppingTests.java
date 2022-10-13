@@ -10,10 +10,9 @@ public class ShoppingTests extends BaseTest{
 
     @Test(description = "Get a contract deal")
     public void GetDeal(){
-        LandingPage landingPage = new LandingPage(Driver);
-        Assert.assertTrue(landingPage.Visible);
+        Assert.assertTrue(LandingPage.Visible);
 
-        landingPage.OpenShoppingMenu();
+        LandingPage.OpenShoppingMenu();
 
         ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
         Assert.assertTrue(shoppingMenuPage.Visible);
@@ -46,10 +45,9 @@ public class ShoppingTests extends BaseTest{
 
     @Test(description = "Get a contract deal and verify with invalid price")
     public void GetDealWithIncorrectPrice() {
-        LandingPage landingPage = new LandingPage(Driver);
-        Assert.assertTrue(landingPage.Visible);
+        Assert.assertTrue(LandingPage.Visible);
 
-        landingPage.OpenShoppingMenu();
+        LandingPage.OpenShoppingMenu();
 
         ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
         Assert.assertTrue(shoppingMenuPage.Visible);

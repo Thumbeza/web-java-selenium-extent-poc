@@ -1,6 +1,7 @@
 package Listeners;
 
 import Reporting.ExtentManager;
+import Reporting.ExtentTestManager;
 import Tests.BaseTest;
 import com.aventstack.extentreports.Status;
 import org.testng.ITestContext;
@@ -20,13 +21,11 @@ public class TestListener extends BaseTest implements ITestListener {
     }
     @Override
     public void onFinish(ITestContext iTestContext) {
-        //Log.info("I am in onFinish method " + iTestContext.getName());
-        //Do tier down operations for ExtentReports reporting!
         ExtentManager.ExtentReports.flush();
     }
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        //Log.info(getTestMethodName(iTestResult) + " test is starting.");
+        ExtentTestManager.StartTest(getTestMethodName(iTestResult));
     }
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
@@ -36,12 +35,11 @@ public class TestListener extends BaseTest implements ITestListener {
     }
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        //Log.info(getTestMethodName(iTestResult) + " test is failed.");
         Object testClass = iTestResult.getInstance();
 
-        //String base64Screenshot = BrowserHelpers.TakeScreenshotAsBase64(); TODO: PASS DRIVER IN THE METHOD
-        //GetTest().log(Status.FAIL, "Test Failed",
-                //GetTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
+        //String base64Screenshot = BrowserHelpers.TakeScreenshotAsBase64();
+        GetTest().log(Status.FAIL, "Test Failed");
+        //GetTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0)
     }
     @Override
     public void onTestSkipped(ITestResult iTestResult) {

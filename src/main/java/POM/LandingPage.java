@@ -8,7 +8,7 @@ public class LandingPage extends BasePage{
     private WebDriver _driver;
     private BrowserHelpers _browserHelpers;
 
-    public LandingPage(WebDriver driver){
+    public LandingPage(WebDriver driver) throws InterruptedException {
         super(driver);
 
         _driver = driver;
@@ -25,9 +25,13 @@ public class LandingPage extends BasePage{
         MouseHover(ShopLink);
     }
 
-    private Boolean IsPageVisible() {
+    private Boolean IsPageVisible() throws InterruptedException {
         if(!_browserHelpers.GetDriverUrl().contains("https://www.vodacom.co.za/"))
             _browserHelpers.LaunchUrl("https://www.vodacom.co.za/"); //url must be moved to data file
+        else
+            _driver.navigate().refresh();
+
+        Thread.sleep(1000);
 
         if(WaitForElementVisible(AcceptCookiesButton))
             ClickElement(AcceptCookiesButton);

@@ -1,26 +1,34 @@
 package Tests;
 
+import Browsers.Browser;
 import Browsers.BrowserFactory;
 import Browsers.BrowserHelpers;
+import POM.LandingPage;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
 
 public class BaseTest {
     public BrowserHelpers BrowserHelpers;
+    public LandingPage LandingPage;
 
     public WebDriver Driver;
 
-    @BeforeTest
-    public void Setup(){
+    @BeforeSuite
+    public void Setup() throws Exception {
         BrowserFactory browserFactory = new BrowserFactory();
 
-        Driver = browserFactory.GetDriver(); //returns chrome by default
+        Driver = browserFactory.GetDriver(Browser.Chrome);
         BrowserHelpers = new BrowserHelpers(Driver);
     }
 
-    @AfterTest
+    @BeforeTest
+    public void TestSetup() throws InterruptedException {
+        LandingPage = new LandingPage(Driver);
+    }
+
+    @AfterSuite
     public void TearDown(){
+
         BrowserHelpers.KillBrowser();
     }
 }

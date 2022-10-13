@@ -7,8 +7,8 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 public class ExtentManager {
     public static final ExtentReports ExtentReports = new ExtentReports();
 
-    public synchronized static ExtentReports createExtentReports() {
-        ExtentSparkReporter reporter = new ExtentSparkReporter("./extent-reports/extent-report.html");
+    public synchronized static ExtentReports CreateExtentReports() {
+        ExtentSparkReporter reporter = new ExtentSparkReporter("./target/extent-reports/extent-report.html");
         reporter.config().setReportName("Vodacom End to End Regression");
         reporter.config().setTheme(Theme.DARK);
 
