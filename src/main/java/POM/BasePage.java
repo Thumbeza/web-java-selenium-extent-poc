@@ -2,6 +2,7 @@ package POM;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -40,6 +41,14 @@ public class BasePage {
         catch (Exception exception){
             return false;
         }
+    }
+
+    public void MouseHover(By by){
+        WaitForElementVisible(by);
+
+        Actions action = new Actions(_driver);
+
+        action.moveToElement(_driver.findElement(by)).perform();
     }
 
     public void ClickElement(By by){

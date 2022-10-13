@@ -1,7 +1,6 @@
 package Tests;
 
 import POM.*;
-import TestData.DeviceName;
 import com.aventstack.extentreports.ExtentTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -24,16 +23,25 @@ public class ShoppingTests extends BaseTest{
         OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
         Assert.assertTrue(onlineExclusiveDealsPage.Visible);
 
-        onlineExclusiveDealsPage.SeeDeviceDetails(DeviceName.GalaxyA33);
+        onlineExclusiveDealsPage.SeeDeviceDetails();
 
         DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
         Assert.assertTrue(dealDetailsPage.Visible);
-        Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
 
-        //create a validation point
+        String contractTermsPreDeal = dealDetailsPage.GetPriceAndContractTerm();
+
+        dealDetailsPage.GetDeal();
 
         OrderSummaryPage orderSummaryPage = new OrderSummaryPage(Driver);
         Assert.assertTrue(orderSummaryPage.Visible);
+
+        orderSummaryPage.RemoveContractCover();
+        String contractTermsPostDeal = orderSummaryPage.GetPriceAndContractTerm();
+
+        Assert.assertEquals(
+                contractTermsPreDeal,
+                contractTermsPostDeal,
+                "contract values are not the same pre and post getting the deal");
     }
 
     @Test(description = "Get a contract deal and verify with invalid price")
@@ -51,10 +59,9 @@ public class ShoppingTests extends BaseTest{
         OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
         Assert.assertTrue(onlineExclusiveDealsPage.Visible);
 
-        onlineExclusiveDealsPage.SeeDeviceDetails(DeviceName.GalaxyA33);
+        onlineExclusiveDealsPage.SeeDeviceDetails();
 
         DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
         Assert.assertTrue(dealDetailsPage.Visible);
-        Assert.assertEquals(DeviceName.GalaxyA33, dealDetailsPage.GetDeviceName());
     }
 }

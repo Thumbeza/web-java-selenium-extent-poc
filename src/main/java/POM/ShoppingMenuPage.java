@@ -13,9 +13,8 @@ public class ShoppingMenuPage extends BasePage{
 
         Visible = IsPageVisible();
     }
-
     private static By LatestPromotionsLabel = By.id("menu-column--2599970378");
-    private static By OnlineExclusiveDealsLink = By.xpath("//[@id='menu-column--2599970378']/a[contains(.,'Online Exclusive Deals')]");
+    private static By OnlineExclusiveDealsLink = By.xpath("//*[@id='menu-column--2599970378-item-2-link']");
 
     public void OpenOnlineExclusiveDeals(){
         ClickElement(OnlineExclusiveDealsLink);

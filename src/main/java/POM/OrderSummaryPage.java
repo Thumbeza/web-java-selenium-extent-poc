@@ -16,8 +16,7 @@ public class OrderSummaryPage extends BasePage{
 
     private static By OrderSummaryLabel = By.xpath("//p[@class='head' and text()='Order summary']");
     private static By RemoveCoverButton = By.xpath("//a[@ng-click='removeContractCover()' and text()='Remove Item']");
-    private static By ContractDescriptionLabel = By.xpath("//div[@class='device_title ng-binding']");
-    private static By PriceLabel = By.xpath("//span[@class='dprice ng-binding']");
+    private static By PriceLabel = By.xpath("//span[@class='price ng-binding']");
     private static By ContractTermLabel = By.xpath("//span[@class='price_details ng-binding']");
 
     public void RemoveContractCover(){
@@ -26,20 +25,13 @@ public class OrderSummaryPage extends BasePage{
         }
     }
 
-    public Boolean IsDeviceNameCorrect(String deviceName){
-        if (GetElementText(ContractDescriptionLabel).startsWith(deviceName)) {
-            return true;
-        }
-
-        return false;
-    }
-
     public String GetPriceAndContractTerm()
     {
         String price = GetElementText(PriceLabel);
+        String actualPrice = price.substring(0, price.indexOf("."));
         String contractTerm = GetElementText(ContractTermLabel);
 
-        return (price + contractTerm).trim();
+        return (actualPrice + contractTerm).trim();
     }
 
     private Boolean IsPageVisible() {

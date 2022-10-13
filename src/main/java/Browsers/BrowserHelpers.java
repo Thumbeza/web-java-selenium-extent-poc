@@ -4,8 +4,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import java.util.Objects;
-
 public class BrowserHelpers {
     private WebDriver _driver;
 
@@ -22,7 +20,7 @@ public class BrowserHelpers {
     }
 
     public String TakeScreenshotAsBase64() {
-        TakesScreenshot screenshot =((TakesScreenshot) Objects.requireNonNull(_driver));
+        TakesScreenshot screenshot =((TakesScreenshot)_driver);
 
         return screenshot.getScreenshotAs(OutputType.BASE64);
     }

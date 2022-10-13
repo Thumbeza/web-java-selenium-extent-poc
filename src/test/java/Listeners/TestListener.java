@@ -39,9 +39,9 @@ public class TestListener extends BaseTest implements ITestListener {
         //Log.info(getTestMethodName(iTestResult) + " test is failed.");
         Object testClass = iTestResult.getInstance();
 
-        String base64Screenshot = BrowserHelpers.TakeScreenshotAsBase64();
-        GetTest().log(Status.FAIL, "Test Failed",
-                GetTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
+        //String base64Screenshot = BrowserHelpers.TakeScreenshotAsBase64(); TODO: PASS DRIVER IN THE METHOD
+        //GetTest().log(Status.FAIL, "Test Failed",
+                //GetTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
     }
     @Override
     public void onTestSkipped(ITestResult iTestResult) {

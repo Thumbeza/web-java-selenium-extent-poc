@@ -15,14 +15,15 @@ public class OnlineExclusiveDealsPage extends BasePage{
     }
 
     private static By BrowserAllDealsLabel = By.id("browse-heading");
+    private static By SeeDetailsLink = By.xpath("//span[text()='See details'][1]");
 
-    public void SeeDeviceDetails(String deviceName){
-        By seeDetailsLink = By.xpath("");
+    public void SeeDeviceDetails(){
 
-        ClickElement(seeDetailsLink);
+        ClickElement(SeeDetailsLink);
     }
 
     private Boolean IsPageVisible() {
+
         return WaitForElementVisible(BrowserAllDealsLabel);
     }
 

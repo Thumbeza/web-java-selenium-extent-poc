@@ -15,13 +15,25 @@ public class DealDetailsPage extends BasePage{
     }
 
     private static By DealDetailsLabel = By.id("heading-Deal details");
-    private static By DeviceNameLabel = By.xpath("//div[contains(@class, 'DependencyHelper__CustomContainer)]");
-
-    public String GetDeviceName(){
-        return GetElementText(DeviceNameLabel);
-    }
+    private static By PriceLabel = By.xpath("//span[@class='productDetailPrice_deal-amount__37IDW']");
+    private static By ContractTermLabel = By.xpath("//span[@class='productDetailPrice_deal-amount__37IDW'][2]");
+    private static By GetThisDealButton = By.xpath("//button[text()='Get this deal']");
 
     private Boolean IsPageVisible() {
+
         return WaitForElementVisible(DealDetailsLabel);
+    }
+
+    public String GetPriceAndContractTerm(){
+
+        String price = GetElementText(PriceLabel);
+        String contractTerm = GetElementText(ContractTermLabel);
+
+        return (price + contractTerm).trim();
+    }
+
+    public void GetDeal(){
+
+        ClickElement(GetThisDealButton);
     }
 }
