@@ -15,11 +15,12 @@ public class OnlineExclusiveDealsPage extends BasePage{
     }
 
     private static By BrowserAllDealsLabel = By.id("browse-heading");
-    private static By SeeDetailsLink = By.xpath("//span[text()='See details'][1]");
 
-    public void SeeDeviceDetails(){
+    public void SeeDeviceDetails(String deviceName){
+        By deviceDetailsLink = By.xpath(
+                "//div[@id='Deal-Card']/div[2]//div[@class='DealCard_image-text-content__13qd9']/span[contains(.,'"+deviceName+"')]");
 
-        ClickElement(SeeDetailsLink);
+        ClickElement(deviceDetailsLink);
     }
 
     private Boolean IsPageVisible() {

@@ -1,43 +1,47 @@
 package Tests;
 
-import POM.*;
-import com.aventstack.extentreports.ExtentTest;
-import org.testng.Assert;
+import POM.DealDetailsPage;
+import POM.OnlineExclusiveDealsPage;
+import POM.OrderSummaryPage;
+import POM.ShoppingMenuPage;
+import TestData.Devices;
 import org.testng.annotations.Test;
 
-public class ShoppingTests extends BaseTest{
-    private ExtentTest _test;
+import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
+public class ShoppingTests extends BaseTest{
     @Test(description = "Get a contract deal")
     public void GetDeal(){
-        Assert.assertTrue(LandingPage.Visible);
+        assertTrue(LandingPage.Visible);
 
         LandingPage.OpenShoppingMenu();
 
         ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
-        Assert.assertTrue(shoppingMenuPage.Visible);
+        assertTrue(shoppingMenuPage.Visible);
 
         shoppingMenuPage.OpenOnlineExclusiveDeals();
 
         OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
-        Assert.assertTrue(onlineExclusiveDealsPage.Visible);
+        assertTrue(onlineExclusiveDealsPage.Visible);
 
-        onlineExclusiveDealsPage.SeeDeviceDetails();
+        onlineExclusiveDealsPage.SeeDeviceDetails(Devices.SamsungGalaxyA35);
 
         DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
-        Assert.assertTrue(dealDetailsPage.Visible);
+        assertTrue(dealDetailsPage.Visible);
+        assertTrue(dealDetailsPage.GetDeviceName().contains(Devices.SamsungGalaxyA35));
 
         String contractTermsPreDeal = dealDetailsPage.GetPriceAndContractTerm();
 
         dealDetailsPage.GetDeal();
 
         OrderSummaryPage orderSummaryPage = new OrderSummaryPage(Driver);
-        Assert.assertTrue(orderSummaryPage.Visible);
+        assertTrue(orderSummaryPage.Visible);
 
         orderSummaryPage.RemoveContractCover();
         String contractTermsPostDeal = orderSummaryPage.GetPriceAndContractTerm();
 
-        Assert.assertEquals(
+        assertEquals(
                 contractTermsPreDeal,
                 contractTermsPostDeal,
                 "contract values are not the same pre and post getting the deal");
@@ -45,26 +49,30 @@ public class ShoppingTests extends BaseTest{
 
     @Test(description = "Get a contract deal and verify with invalid price")
     public void GetDealWithIncorrectPrice() {
-        Assert.assertTrue(LandingPage.Visible);
+        assertTrue(LandingPage.Visible);
 
         LandingPage.OpenShoppingMenu();
 
         ShoppingMenuPage shoppingMenuPage = new ShoppingMenuPage(Driver);
-        Assert.assertTrue(shoppingMenuPage.Visible);
+        assertTrue(shoppingMenuPage.Visible);
 
         shoppingMenuPage.OpenOnlineExclusiveDeals();
 
         OnlineExclusiveDealsPage onlineExclusiveDealsPage = new OnlineExclusiveDealsPage(Driver);
-        Assert.assertTrue(onlineExclusiveDealsPage.Visible);
+        assertTrue(onlineExclusiveDealsPage.Visible);
 
-        onlineExclusiveDealsPage.SeeDeviceDetails();
+        onlineExclusiveDealsPage.SeeDeviceDetails(Devices.SamsungGalaxyS21);
 
         DealDetailsPage dealDetailsPage = new DealDetailsPage(Driver);
-        Assert.assertTrue(dealDetailsPage.Visible);
+        assertTrue(dealDetailsPage.Visible);
+        assertTrue(dealDetailsPage.GetDeviceName().contains(Devices.SamsungGalaxyS21));
 
         String contractTermsPreDeal = dealDetailsPage.GetPriceAndContractTerm();
         String contractPrice = contractTermsPreDeal.substring(0,4);
 
-        Assert.assertEquals(contractPrice, "R158");
+        assertEquals(
+                contractPrice,
+                "R158",
+                "The contract price is different to the expected price");
     }
 }

@@ -1,34 +1,38 @@
 package Tests;
 
-import Browsers.Browser;
 import Browsers.BrowserFactory;
-import Browsers.BrowserHelpers;
 import POM.LandingPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
 public class BaseTest {
-    public BrowserHelpers BrowserHelpers;
     public LandingPage LandingPage;
-
     public WebDriver Driver;
 
-    @BeforeSuite
-    public void Setup() throws Exception {
-        BrowserFactory browserFactory = new BrowserFactory();
-
-        Driver = browserFactory.GetDriver(Browser.Chrome);
-        BrowserHelpers = new BrowserHelpers(Driver);
+    @BeforeClass
+    public void Setup(){
+        _browserFactory = new BrowserFactory();
     }
 
-    @BeforeTest
-    public void TestSetup() throws InterruptedException {
+    private BrowserFactory _browserFactory;
+
+    @BeforeMethod
+    public void TestSetup() throws Exception {
+        //Chrome will be returned by default.
+        //If you wish to use edge, call the GetDriver(Browser.Edge) overload
+        Driver = _browserFactory.GetDriver();
+
         LandingPage = new LandingPage(Driver);
     }
 
-    @AfterSuite
-    public void TearDown(){
+    @AfterMethod
+    public void TestTearDown(){
+        Driver.quit();
+    }
 
-        BrowserHelpers.KillBrowser();
+    @AfterClass
+    public void TearDown(){
+        if (Driver != null)
+            Driver.quit();
     }
 }

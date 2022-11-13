@@ -16,7 +16,6 @@ public class TestListener extends BaseTest implements ITestListener {
     }
     @Override
     public void onStart(ITestContext iTestContext) {
-        //Log.info("I am in onStart method " + iTestContext.getName());
         iTestContext.setAttribute("WebDriver", this.Driver);
     }
     @Override
@@ -29,8 +28,6 @@ public class TestListener extends BaseTest implements ITestListener {
     }
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        //Log.info(getTestMethodName(iTestResult) + " test is succeed.");
-
         GetTest().log(Status.PASS, "Test passed");
     }
     @Override
@@ -43,12 +40,6 @@ public class TestListener extends BaseTest implements ITestListener {
     }
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        //Log.info(getTestMethodName(iTestResult) + " test is skipped.");
-
         GetTest().log(Status.SKIP, "Test Skipped");
-    }
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-        //Log.info("Test failed but it is in defined success ratio " + getTestMethodName(iTestResult));
     }
 }
